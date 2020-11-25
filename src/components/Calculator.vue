@@ -9,7 +9,7 @@
       <div>{{ value || 0 }}</div>
     </div>
     <div class="calculator__button">
-      <div @click="clear">CLEAR</div>
+      <div @click="clear" class="ripple">CLEAR</div>
       <div @click="addOperator('/', 0)" :class="[{active: isOperatorActive[0]}, 'c-orange']">/</div>
       <div @click="addOperator('*', 1)" :class="[{active: isOperatorActive[1]}, 'c-orange']">x</div>
       <div @click="setValue('1')" class="ripple">1</div>
@@ -85,7 +85,6 @@ export default {
     },
     addDot() {
       if (this.value.indexOf('.') === -1) {
-        console.log(this.value);
         if (this.value === '')
           this.value = '0.';
         else
@@ -93,16 +92,18 @@ export default {
       }
     },
     addOperator(operator, idx) {
+      if (this.isCalculated) {
+        this.isCalculated = false;
+        this.history = '';
+      }
       this.isOperatorActive.fill(false);
       this.operator = operator;
       this.isOperatorActive[idx] = true;
       this.$forceUpdate();
-
     },
     calculate() {
       if (!this.isCalculated) {
         this.history = `${this.history} ${this.value}`;
-        console.log(this.history);
         this.value = eval(this.history);
         const calculationHistory = `${this.history} = ${this.value}`;
         this.$store.dispatch('updateHistory', calculationHistory);
