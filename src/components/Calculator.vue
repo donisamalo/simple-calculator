@@ -162,6 +162,7 @@ export default {
         grid-column-end: span 3;
         text-align: right;
         padding-right: 8px;
+        overflow: auto;
       }
     }
   }
@@ -171,8 +172,8 @@ export default {
     div {
       border-radius: 50%;
       background: $primary-color;
-      width: 50px;
-      line-height: 50px;
+      width: 60px;
+      line-height: 60px;
       margin: auto;
       font-size: 20px;
       font-weight: bold;
