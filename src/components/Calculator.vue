@@ -1,7 +1,8 @@
 <template>
   <div class="calculator">
     <div class="calculator__history">
-      {{ history }}
+      <span @click="openModal">View Calculation History</span>
+      <p>{{ history }}</p>
     </div>
     <div class="calculator__result">
       <div>=</div>
@@ -103,21 +104,21 @@ export default {
         this.history = `${this.history} ${this.value}`;
         console.log(this.history);
         this.value = eval(this.history);
+        const calculationHistory = `${this.history} = ${this.value}`;
+        this.$store.dispatch('updateHistory', calculationHistory);
         this.isOperatorActive.fill(false);
         this.isCalculated = true;
       }
+    },
+    openModal() {
+      this.$store.dispatch('setModalHistory', true);
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-$primary-color: #DDF1F3;
-$border-color: #E6E6E6;
-$white-color: #FFFFFF;
-$c-operator: #FEF5DA;
-$c-operator-active: #FFA500;
-
+@import "@/assets/scss/variables.scss";
 @mixin display {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -129,13 +130,28 @@ $c-operator-active: #FFA500;
   &__history {
     text-align: right;
     margin: 10px 0 15px;
-    font-size: 15px;
     padding: 0 8px;
-    height: 20px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    direction: rtl;
+    span {
+      font-size: 10px;
+      color: $c-gray;
+      font-weight: bold;
+      border: 1px solid $c-gray;
+      border-radius: 8px;
+      padding: 2px 6px;
+      cursor: pointer;
+      transition: all .3s;
+      &:hover {
+        color: $c-white;
+        background: $c-gray;
+      }
+    }
+    p {
+      font-size: 15px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      height: 20px;
+    }
   }
   &__result {
     @include display;
@@ -175,7 +191,7 @@ $c-operator-active: #FFA500;
         background: $c-operator;
         &.active {
           background: $c-operator-active;
-          color: $white-color;
+          color: $c-white;
         }
       }
       &:focus {

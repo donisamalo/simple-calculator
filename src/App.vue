@@ -2,16 +2,24 @@
   <div id="app">
     <h2>Calculator App</h2>
     <Calculator msg="Welcome to Your Vue.js App"/>
+    <CalculationHistory v-if="isShowModal"/>
   </div>
 </template>
 
 <script>
 import Calculator from './components/Calculator.vue'
+import CalculationHistory from './components/CalculationHistory.vue'
 
 export default {
   name: 'App',
   components: {
-    Calculator
+    Calculator,
+    CalculationHistory
+  },
+  computed: {
+    isShowModal() {
+      return this.$store.getters.getShowHistory
+    }
   }
 }
 </script>
