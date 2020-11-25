@@ -12,22 +12,22 @@
       <div @click="clear">CLEAR</div>
       <div @click="addOperator('/', 0)" :class="[{active: isOperatorActive[0]}, 'c-orange']">/</div>
       <div @click="addOperator('*', 1)" :class="[{active: isOperatorActive[1]}, 'c-orange']">x</div>
-      <div @click="setValue('1')">1</div>
-      <div @click="setValue('2')">2</div>
-      <div @click="setValue('3')">3</div>
+      <div @click="setValue('1')" class="ripple">1</div>
+      <div @click="setValue('2')" class="ripple">2</div>
+      <div @click="setValue('3')" class="ripple">3</div>
       <div @click="addOperator('+', 2)" :class="[{active: isOperatorActive[2]}, 'c-orange']">+</div>
-      <div @click="setValue('4')">4</div>
-      <div @click="setValue('5')">5</div>
-      <div @click="setValue('6')">6</div>
+      <div @click="setValue('4')" class="ripple">4</div>
+      <div @click="setValue('5')" class="ripple">5</div>
+      <div @click="setValue('6')" class="ripple">6</div>
       <div @click="addOperator('-', 3)" :class="[{active: isOperatorActive[3]}, 'c-orange']">-</div>
-      <div @click="setValue('7')">7</div>
-      <div @click="setValue('8')">8</div>
-      <div @click="setValue('9')">9</div>
-      <div @click="setPercent" class="c-orange">%</div>
-      <div @click="setSign" class="c-orange">+/-</div>
-      <div @click="setValue('0')">0</div>
-      <div @click="addDot" class="c-orange">.</div>
-      <div @click="calculate" class="c-orange">=</div>
+      <div @click="setValue('7')" class="ripple">7</div>
+      <div @click="setValue('8')" class="ripple">8</div>
+      <div @click="setValue('9')" class="ripple">9</div>
+      <div @click="setPercent" class="c-orange ripple">%</div>
+      <div @click="setSign" class="c-orange ripple">+/-</div>
+      <div @click="setValue('0')" class="ripple">0</div>
+      <div @click="addDot" class="c-orange ripple">.</div>
+      <div @click="calculate" class="c-orange ripple">=</div>
     </div>
   </div>
 </template>
@@ -119,11 +119,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
-@mixin display {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
+@import "@/assets/scss/mixins.scss";
+
 .calculator {
   max-width: 300px;
   margin: auto;
@@ -196,6 +193,9 @@ export default {
       }
       &:focus {
         opacity: 0.6;
+      }
+      &.ripple {
+        @include rippleEffect;
       }
     }
   }
