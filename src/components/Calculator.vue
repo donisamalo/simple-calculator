@@ -24,7 +24,11 @@
       <div @click="setValue('8')" class="ripple">8</div>
       <div @click="setValue('9')" class="ripple">9</div>
       <div @click="setPercent" class="c-orange ripple">%</div>
-      <div @click="setSign" class="c-orange ripple">+/-</div>
+      <div @click="setSign" class="c-orange ripple">
+        <span class="top">+</span>
+        <span>/</span>
+        <span class="bottom">-</span>
+        </div>
       <div @click="setValue('0')" class="ripple">0</div>
       <div @click="addDot" class="c-orange ripple">.</div>
       <div @click="calculate" class="c-orange ripple">=</div>
@@ -173,6 +177,7 @@ export default {
       border-radius: 50%;
       background: $primary-color;
       width: 60px;
+      height: 60px;
       line-height: 60px;
       margin: auto;
       font-size: 20px;
@@ -198,6 +203,19 @@ export default {
       }
       &.ripple {
         @include rippleEffect;
+      }
+      span {
+        position: relative;
+        font-size: 25px;
+        &.top {
+          top: -10px;
+          right: -2px;
+          font-size: 15px;
+        }
+        &.bottom {
+          bottom: -3px;
+          left: -2px;
+        }
       }
     }
   }
