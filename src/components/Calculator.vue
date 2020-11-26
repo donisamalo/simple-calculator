@@ -67,7 +67,9 @@ export default {
       }
     },
     setPercent() {
-      this.value = `${parseFloat(this.value) / 100}`;
+      if (this.value) {
+        this.value = `${parseFloat(this.value) / 100}`;
+      }
     },
     setValue(input) {
       let isReset = false;
@@ -117,7 +119,7 @@ export default {
       }
     },
     calculate() {
-      if (!this.isCalculated) {
+      if (!this.isCalculated && this.value) {
         this.history = `${this.history} ${this.value}`;
         this.value = eval(this.history);
         const calculationHistory = `${this.history} = ${this.value}`;
