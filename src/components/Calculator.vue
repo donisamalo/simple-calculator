@@ -58,11 +58,13 @@ export default {
       this.isOperatorActive.fill(false);
     },
     setSign() {
-      if (!isNaN(this.value)) this.value = this.value.toString();
-      if (this.value.charAt(0) === '-')
-        this.value = this.value.slice(1);
-      else
-        this.value = `-${this.value}`;
+      if (this.value) {
+        if (!isNaN(this.value)) this.value = this.value.toString();
+        if (this.value.charAt(0) === '-')
+          this.value = this.value.slice(1);
+        else
+          this.value = `-${this.value}`;
+      }
     },
     setPercent() {
       this.value = `${parseFloat(this.value) / 100}`;
