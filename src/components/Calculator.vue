@@ -59,7 +59,7 @@ export default {
     },
     setSign() {
       if (this.value) {
-        if (!isNaN(this.value)) this.value = this.value.toString();
+        this.convertToString();
         if (this.value.charAt(0) === '-')
           this.value = this.value.slice(1);
         else
@@ -78,10 +78,10 @@ export default {
           isReset = true;
         }
         if (isReset) {
-          this.value = input
+          this.value = input;
           isReset = false;
         } else {
-          this.value = this.value + input;
+          this.value = (this.value + input).replace(/^0+/, '');
         }
       } else {
         this.value = input;
@@ -91,6 +91,8 @@ export default {
       this.isOperatorActive.fill(false);
     },
     addDot() {
+      this.convertToString();
+      this.resetCalculate();
       if (this.value.indexOf('.') === -1) {
         if (this.value === '')
           this.value = '0.';
@@ -98,15 +100,21 @@ export default {
           this.setValue('.');
       }
     },
+    convertToString() {
+      if (!isNaN(this.value)) this.value = this.value.toString();
+    },
     addOperator(operator, idx) {
-      if (this.isCalculated) {
-        this.isCalculated = false;
-        this.history = '';
-      }
+      this.resetCalculate();
       this.isOperatorActive.fill(false);
       this.operator = operator;
       this.isOperatorActive[idx] = true;
       this.$forceUpdate();
+    },
+    resetCalculate() {
+      if (this.isCalculated) {
+        this.isCalculated = false;
+        this.history = '';
+      }
     },
     calculate() {
       if (!this.isCalculated) {
