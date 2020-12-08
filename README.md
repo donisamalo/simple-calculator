@@ -1,5 +1,8 @@
 # simple-calculator
 
+## Link Preview
+https://donisamalo-simplecalculator.netlify.app/
+
 ## Project setup
 ```
 yarn install
